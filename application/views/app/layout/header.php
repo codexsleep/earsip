@@ -9,24 +9,24 @@
     <meta content="Coderthemes" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="<?= base_url(); ?>assets/images/favicon.ico">
+    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.ico">
 
     <!-- Plugins css -->
-    <link href="<?= base_url(); ?>assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url(); ?>assets/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet"
+    <link href="<?php echo base_url(); ?>assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet"
         type="text/css" />
 
     <!-- Theme Config Js -->
-    <script src="<?= base_url(); ?>assets/js/head.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/head.js"></script>
 
     <!-- Bootstrap css -->
-    <link href="<?= base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="app-style" />
+    <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="app-style" />
 
     <!-- App css -->
-    <link href="<?= base_url(); ?>assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Icons css -->
-    <link href="<?= base_url(); ?>assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -55,45 +55,6 @@
 
             <!-- menu-left -->
             <div class="scrollbar">
-
-                <!-- User box -->
-                <div class="user-box text-center">
-                    <img src="<?= base_url(); ?>assets/images/users/user-1.jpg" alt="user-img" title="Mat Helme"
-                        class="rounded-circle avatar-md">
-                    <div class="dropdown">
-                        <a href="javascript: void(0);" class="dropdown-toggle h5 mb-1 d-block"
-                            data-bs-toggle="dropdown">Geneva Kennedy</a>
-                        <div class="dropdown-menu user-pro-dropdown">
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="fe-user me-1"></i>
-                                <span>My Account</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="fe-settings me-1"></i>
-                                <span>Settings</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="fe-lock me-1"></i>
-                                <span>Lock Screen</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="fe-log-out me-1"></i>
-                                <span>Logout</span>
-                            </a>
-
-                        </div>
-                    </div>
-                    <p class="text-muted mb-0">Admin Head</p>
-                </div>
-
                 <!--- Menu -->
                 <ul class="menu">
 
@@ -179,15 +140,15 @@
                         <div class="logo-box">
                             <!-- Brand Logo Light -->
                             <a href="index.html" class="logo-light">
-                                <img src="<?= base_url(); ?>assets/images/logo-light.png" alt="logo" class="logo-lg">
-                                <img src="<?= base_url(); ?>assets/images/logo-sm.png" alt="small logo" class="logo-sm">
+                                <img src="<?php echo base_url(); ?>assets/images/logo-light.png" alt="logo" class="logo-lg">
+                                <img src="<?php echo base_url(); ?>assets/images/logo-sm.png" alt="small logo" class="logo-sm">
                             </a>
 
                             <!-- Brand Logo Dark -->
                             <a href="index.html" class="logo-dark">
-                                <img src="<?= base_url(); ?>assets/images/logo-dark.png" alt="dark logo"
+                                <img src="<?php echo base_url(); ?>assets/images/logo-dark.png" alt="dark logo"
                                     class="logo-lg">
-                                <img src="<?= base_url(); ?>assets/images/logo-sm.png" alt="small logo" class="logo-sm">
+                                <img src="<?php echo base_url(); ?>assets/images/logo-sm.png" alt="small logo" class="logo-sm">
                             </a>
                         </div>
 
@@ -205,10 +166,10 @@
                             <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light"
                                 data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                                 aria-expanded="false">
-                                <img src="<?= base_url(); ?>assets/images/users/user-1.jpg" alt="user-image"
+                                <img src="<?php echo base_url(); ?>assets/images/users/user-1.jpg" alt="user-image"
                                     class="rounded-circle">
                                 <span class="ms-1 d-none d-md-inline-block">
-                                    Geneva <i class="mdi mdi-chevron-down"></i>
+                                <?php echo $this->session->userdata('nama'); ?> <i class="mdi mdi-chevron-down"></i>
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
@@ -223,7 +184,7 @@
                                 <div class="dropdown-divider"></div>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <a href="<?php echo base_url()?>app/auth/logout" class="dropdown-item notify-item">
                                     <i class="fe-log-out"></i>
                                     <span>Logout</span>
                                 </a>

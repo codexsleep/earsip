@@ -1,0 +1,15 @@
+# Ignore system folder
+system/*
+
+# Ignore application/logs folder
+application/logs/*
+
+# Ignore application/cache folder
+application/cache/*
+
+# Ignore IDE files and directories
+.idea/
+.vscode/
+
+# Ignore composer dependencies
+vendor/

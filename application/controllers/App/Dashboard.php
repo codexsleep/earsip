@@ -8,6 +8,9 @@ class Dashboard extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+        if (!$this->session->userdata('logged')) {
+            redirect('app/auth/login');
+        }
     }
 
     public function index()

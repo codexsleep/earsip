@@ -1,70 +1,77 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-class Auth extends CI_Controller {
+defined('BASEPATH') or exit('No direct script access allowed');
+class Auth extends CI_Controller
+{
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model('Auth_model');
     }
+    public function index()
+    {
+        redirect('app/auth/login');
+    }
+    public function login()
+    {
+        // Periksa apakah pengguna sudah login
+        if ($this->session->userdata('logged')) {
+            redirect('app/dashboard');
+        }
+        if ($this->input->post()) {
+            $email = htmlspecialchars($this->input->post('email'), ENT_QUOTES);
+            $email = $this->security->xss_clean($email);
+            $password = htmlspecialchars($this->input->post('password'), ENT_QUOTES);
+            $password = $this->security->xss_clean($password);
 
-	public function index()
-	{
-		redirect('app/auth/login');
-	}
-
-	public function login()
-	{
-		
-		if (isset($_REQUEST['is_ajax']) && $_REQUEST['is_ajax']) {
-            $email = str_replace("'", "", htmlspecialchars($_REQUEST['email'], ENT_QUOTES));
-            $password = str_replace("'", "", htmlspecialchars($_REQUEST['password'], ENT_QUOTES));
-            if (preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", trim($email))) { //validation email
-                if ($email != null && $password != null) {
-                    $userData = $this->Auth_model->get($email); //result user data
-                    if ($userData->num_rows() > 0) {
-                        $result = $userData->row();
-                        if($result->status=='1'){
-                        if (password_verify($password, $result->password)) {
-
-                            if ($_POST['remember'] == 1) {
-                                set_cookie('autologged', encrypt_str('{"uid": ' . $result->id . ',"email": "' . $email . '"}'), '1209600');
-                            }
+            // Validasi input
+            if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password)) {
+                // Ambil data pengguna berdasarkan email dari model
+                $userData = $this->Auth_model->get($email);
+                if ($userData && $userData->num_rows() > 0) { // Periksa apakah data pengguna ditemukan
+                    $result = $userData->row();
+                    // Verifikasi password
+                    if (!empty($result->password) && password_verify($password, $result->password)) { // Periksa apakah password tidak kosong
+                        if ($result->status == 'aktif') {
+                            // Atur data sesi pengguna setelah login berhasil
                             $data = [
                                 'logged' => TRUE,
-
-
-                                
                                 'uid' => $result->id,
-                                'email' => $email
+                                'email' => $result->email,
+                                'nama' => $result->nama
+
                             ];
                             $this->session->set_userdata($data);
-                            echo "success";
+                            // Notifikasi berhasil login
+                            $this->session->set_flashdata('success', 'Login berhasil. Anda akan dialihkan ke dashboard.');
+                            redirect('app/dashboard');
+                        } else {
+                            $this->session->set_flashdata('error', 'Akun Anda belum aktif. Mohon hubungi admin.');
                         }
-                        }else{
-                            echo "notactive";
-                        }
+                    } else {
+                        $this->session->set_flashdata('error', 'Email atau password salah. Mohon periksa kembali.');
                     }
+                } else {
+                    $this->session->set_flashdata('error', 'Email tidak terdaftar.');
                 }
+            } else {
+                $this->session->set_flashdata('error', 'Email dan password harus diisi dengan benar.');
             }
-
-        } else {
-            $data['title'] = "Sign In";
-            $this->load->view("admin/auth/vw_login",$data);
         }
-	}
-
-    function logout()
-    {
-        $this->session->unset_userdata('email');
-		$this->session->unset_userdata('uid');
-        $this->session->unset_userdata('logged');
-        $this->session->set_userdata(array());
-        $this->session->sess_destroy();
-        delete_cookie("autologged");
-        redirect(base_url("admin/auth/login"));
-
+        // Jika tidak ada post, tampilkan halaman login
+        $data['title'] = "Login";
+        $this->load->view("app/auth/vw_login", $data);
     }
 
-    
+    public function logout()
+    {
+        // Hapus data sesi pengguna
+        $this->session->unset_userdata('logged');
+        $this->session->unset_userdata('uid');
+        $this->session->unset_userdata('email');
+        // Redirect ke halaman login
+        redirect('app/auth/login');
+    }
+
+
 }

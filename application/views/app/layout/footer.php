@@ -5,7 +5,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div>
-                                <script>document.write(new Date().getFullYear())</script> © E-Arsip
+                                <script>document.write(new Date().getFullYear())</script> &copy; E-Arsip
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -14,7 +14,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> 
             </footer>
             <!-- end Footer -->
 
@@ -28,18 +28,18 @@
     <!-- END wrapper -->
 
     <!-- Vendor js -->
-    <script src="<?= base_url(); ?>assets/js/vendor.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/vendor.min.js"></script>
 
     <!-- App js -->
-    <script src="<?= base_url(); ?>assets/js/app.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/app.min.js"></script>
 
     <!-- Plugins js-->
-    <script src="<?= base_url(); ?>assets/libs/flatpickr/flatpickr.min.js"></script>
-    <script src="<?= base_url(); ?>assets/libs/apexcharts/apexcharts.min.js"></script>
-    <script src="<?= base_url(); ?>assets/libs/selectize/js/standalone/selectize.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/libs/flatpickr/flatpickr.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/libs/selectize/js/standalone/selectize.min.js"></script>
 
     <!-- Dashboar 1 init js-->
-    <script src="<?= base_url(); ?>assets/js/pages/dashboard-1.init.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/pages/dashboard-1.init.js"></script>
 
 </body>
 
